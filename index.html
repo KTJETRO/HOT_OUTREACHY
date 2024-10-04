@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Carousel</title>
+<style>
+body {
+    background: url('background.jpg') no-repeat center center; 
+    background-size: cover; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 1; 
+}
+
+.carousel-container {
+    position: relative;
+    width: 65vw; 
+    max-width: 1000px; 
+    overflow: hidden;
+    border-radius: 10px;
+	box-shadow: 0 0 100px rgba(0, 0, 0, 100);
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    background: white;
+	z-index:2;
+}
+
+.carousel-slide {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.carousel-button {
+    position: absolute;
+	width: 50px;
+	height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(85, 0, 85, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+    border-radius: 50%; 
+}
+
+.carousel-button.left {
+    left: 5%; 
+}
+
+.carousel-button.right {
+    right: 5%; 
+}
+</style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<div class="carousel-container">
+    <div class="carousel-slide">
+        <img src="Slide1-1.JPG" alt="Slide 1">
+        <img src="Slide2.JPG" alt="Slide 2">
+        <img src="Slide3.JPG" alt="Slide 3">
+        <img src="Slide4.JPG" alt="Slide 4">
+        <img src="Slide5.JPG" alt="Slide 5">
+        <img src="Slide6.JPG" alt="Slide 6">
+    </div>
+    
+</div>
+<button class="carousel-button left" onclick="prevSlide()">❮</button>
+    <button class="carousel-button right" onclick="nextSlide()">❯</button>
+
+<script>
+let currentSlide = 0;
+
+function showSlide(index) {
+    const slides = document.querySelector('.carousel-slide');
+    const totalSlides = slides.children.length;
+    if (index >= totalSlides) {
+        currentSlide = 0;
+    } else if (index < 0) {
+        currentSlide = totalSlides - 1;
+    } else {
+        currentSlide = index;
+    }
+    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function prevSlide() {
+    showSlide(currentSlide - 1);
+}
+</script>
+</body>
+</html>
